@@ -2,6 +2,7 @@
   <div class="Tag">
     {{ msg }}
     <Tag type="success">标签二</Tag>
+    <div>shezhi</div>
   </div>
 </template>
 
