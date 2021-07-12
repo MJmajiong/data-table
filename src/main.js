@@ -1,13 +1,19 @@
-// import Vue from 'vue'
-// import App from './App.vue'
-
-// new Vue({
-//   el: '#app',
-//   render: h => h(App)
-// })
 import Vue from 'vue'
-import 'element-ui/lib/theme-chalk/tag.css';
+import 'element-ui/lib/theme-chalk/index.css';
 import CustomTag from "./data-table.vue"
+import Index from './index.vue'
+import { Tag, Form, FormItem, Button, Input, Select, Option, DatePicker} from "element-ui";
+import less from 'less'
+
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Button)
+Vue.use(Tag)
+Vue.use(Input)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(DatePicker)
+Vue.use(less)
 CustomTag.install = Vue => {
     Vue.CustomTag(CustomTag.name, CustomTag)
   }
@@ -23,9 +29,9 @@ CustomTag.install = Vue => {
     GlobalVue.use(CustomTag)
   }
   
-// new Vue({
-//     el: "#app",
-//     render: h => h(CustomTag)
-// })
+new Vue({
+    el: "#app",
+    render: h => h(Index)
+})
 export default CustomTag
 

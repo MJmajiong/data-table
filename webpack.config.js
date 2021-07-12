@@ -18,7 +18,18 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ],
-      },      {
+      },
+      {
+        test: /\.less$/,
+        use: [{
+          loader: "vue-style-loader" // creates style nodes from JS strings
+        }, {
+          loader: "css-loader" // translates CSS into CommonJS
+        }, {
+          loader: "less-loader" // compiles Less to CSS
+        }]
+      },   
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -33,7 +44,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|woff|woff2|ttf)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'
