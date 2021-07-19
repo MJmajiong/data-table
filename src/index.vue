@@ -1,5 +1,5 @@
 <template>
-    <dataTable :filters="filters" :url="url" :columns="columns" :operations="operations">
+    <dataTable ref="dataTable" :filters="filters" :url="url" :columns="columns" :operations="operations">
         <!-- <template v-slot:form-default>
             niha
         </template> -->
@@ -66,7 +66,10 @@ export default {
                 {
                     text: '编辑',
                     onClick: (row) => {
-                        this.$put(`/api/list/${id}`, Object.assign(row, {age:33}))
+                        this.$put(`/api/list/${row.id}`, Object.assign({}, row, {age:33}))
+                        .then(resp => {
+                            this.$refs.dataTable.fetchData()
+                        })
                     }
                 }
             ],

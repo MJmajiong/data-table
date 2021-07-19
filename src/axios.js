@@ -35,4 +35,15 @@ export const post = (path, data = {}) => {
     );
   });
 };
+
+export function put(url,data = {}){
+    return new Promise((resolve,reject) => {
+      axios.put(url,data)
+           .then(response => {
+             resolve(response.data);
+           },err => {
+             reject(err)
+           })
+    })
+  }
 export default axios;

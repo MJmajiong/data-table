@@ -46,8 +46,8 @@
           </el-form-item>
         </el-form>
       </slot>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column
+      <el-table :data="tableData" v-if="columns.length" style="width: 100%">
+        <el-table-column     
           v-for="item in columns"
           :key="item.key"
           :prop="item.key"
@@ -55,16 +55,17 @@
           :width="item.width"
         >
         </el-table-column>
-        <slot name="optio÷ns">
+        <slot name="options">
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
-              <!-- <el-button
+              <el-button
                 v-for="item in operations"
                 :key="item.text"
                 @click="item.onClick(scope.row)"
                 :type="'text' || item.type"
               >
-              </el-button> -->
+              {{item.text}}
+              </el-button>
             </template>
           </el-table-column>
         </slot>
