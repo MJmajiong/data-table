@@ -46,6 +46,16 @@
           </el-form-item>
         </el-form>
       </slot>
+    </div>
+    <div class="header-form">
+      <slot name="header-default">
+        <el-button v-if="hasNew" :type="newType">{{newText}}</el-button>
+      </slot>
+      <slot name="customer-header">
+        <el-button v-for="item in headerButtons" :key="item.text" @click="item.onClick" v-bind="item">{{item.text}}</el-button>
+      </slot>
+    </div>
+    <div class="table-wrapper">
       <el-table :data="tableData" v-if="columns.length" style="width: 100%">
         <el-table-column     
           v-for="item in columns"
@@ -53,6 +63,7 @@
           :prop="item.key"
           :label="item.label"
           :width="item.width"
+          v-bind="item"
         >
         </el-table-column>
         <slot name="options">
@@ -71,6 +82,7 @@
         </slot>
       </el-table>
     </div>
+    
   </div>
 </template>
 
@@ -95,6 +107,22 @@ export default {
       type: Array,
       default: () => [],
     },
+    newType: {
+      type: String,
+      default: 'primary'
+    },
+    newText: {
+      type: String,
+      default: '新增'
+    },
+    hasNew: {
+      type: Boolean,
+      default: true
+    },
+    headerButtons: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
@@ -145,5 +173,11 @@ export default {
 .form-wrapepr {
   padding: 16px 16px 10px;
   border: 1px solid #e8e8e8;
+}
+.header-form{
+  margin-top: 20px;
+}
+.table-wrapper {
+  margin-top: 20px;
 }
 </style>

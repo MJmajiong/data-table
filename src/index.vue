@@ -1,5 +1,5 @@
 <template>
-    <dataTable ref="dataTable" :filters="filters" :url="url" :columns="columns" :operations="operations">
+    <dataTable ref="dataTable" :filters="filters" :url="url" :columns="columns" :operations="operations" :headerButtons="headerButtons">
         <!-- <template v-slot:form-default>
             niha
         </template> -->
@@ -14,6 +14,15 @@ export default {
     },
     data(){
         return {
+            headerButtons:[
+                {
+                    text: '批量删除',
+                    type: 'danger',
+                    onClick: () => {
+                        
+                    }
+                }
+            ],
             filters:[
                 {
                     key: 'name',
@@ -44,6 +53,10 @@ export default {
             ],
             columns:[
                 {
+                    type:'selection',
+                    width:'55'
+                },
+                {
                     key: 'name',
                     label: '姓名',             
                 },
@@ -60,7 +73,10 @@ export default {
                 {
                     text: '删除',
                     onClick:(row) => {
-
+                        this.$delete(`/api/list/${row.id}`)
+                        .then(resp => {
+                            this.$refs.dataTable.fetchData()
+                        })
                     }
                 },
                 {
