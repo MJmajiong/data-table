@@ -49,6 +49,16 @@
           </el-form-item>
         </el-form>
       </slot>
+    </div>
+    <div class="header-form">
+      <slot name="header-default">
+        <el-button v-if="hasNew" :type="newType">{{newText}}</el-button>
+      </slot>
+      <slot name="customer-header">
+        <el-button v-for="item in headerButtons" :key="item.text" @click="item.onClick" v-bind="item">{{item.text}}</el-button>
+      </slot>
+    </div>
+    <div class="table-wrapper">
       <el-table :data="tableData" v-if="columns.length" style="width: 100%">
         <el-table-column
           v-for="item in columns"
@@ -57,6 +67,7 @@
           :label="item.label"
           :width="item.width"
           :formatter="item.formatter"
+          v-bind="item"
         >
         <!-- 这里要注意，如果想要自定义的jsx，而不是简单的formatter替换文字 -->
         <!-- vNode这个函数式组件，需要在new Vue之前全局注册，如果只是简单的在当前页面注册式无法生效的 -->
@@ -97,6 +108,7 @@
         </el-pagination>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -140,6 +152,22 @@ export default {
       type: Array,
       default: () => [10, 20, 30, 50, 100],
     },
+    newType: {
+      type: String,
+      default: 'primary'
+    },
+    newText: {
+      type: String,
+      default: '新增'
+    },
+    hasNew: {
+      type: Boolean,
+      default: true
+    },
+    headerButtons: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
@@ -232,6 +260,11 @@ export default {
 .paginaton-wrapper {
   display: flex;
   justify-content: flex-end;
+  }
+.header-form{
+  margin-top: 20px;
+}
+.table-wrapper {
   margin-top: 20px;
 }
 </style>
