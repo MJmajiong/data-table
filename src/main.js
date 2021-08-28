@@ -2,7 +2,7 @@ import Vue from 'vue'
 import 'element-ui/lib/theme-chalk/index.css';
 import CustomTag from "./data-table.vue"
 import Index from './index.vue'
-import { Tag, Form, FormItem, Button, Input, Select, Option, DatePicker, Table, TableColumn} from "element-ui";
+import { Tag, Form, FormItem, Button, Input, Select, Option, DatePicker, Table, TableColumn, Pagination} from "element-ui";
 import less from 'less'
 // import axios from 'axios'
 import axios, {get, post, put} from './axios'
@@ -16,6 +16,7 @@ Vue.use(Option)
 Vue.use(DatePicker)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Pagination)
 
 Vue.use(less)
 Vue.prototype.$axios = axios
@@ -36,6 +37,14 @@ CustomTag.install = Vue => {
   if (GlobalVue) {
     GlobalVue.use(CustomTag)
   }
+Vue.component('vNode', {
+  name:'vnode',
+  functional: true,
+  render(h, ctx) {
+    console.log(ctx, "ctx");
+    return ctx.props.vnode;
+  },
+},)
   
 new Vue({
     el: "#app",
